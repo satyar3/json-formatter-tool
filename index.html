@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="A lightweight JSON Formatter and Validator tool. Format and validate your JSON easily in the browser.">
     <meta name="keywords" content="JSON, formatter, validator, developer tools, online tools">
@@ -29,6 +30,7 @@
             font-family: monospace;
             font-size: 14px;
             padding: 10px;
+            box-sizing: border-box;
         }
 
         #output {
@@ -44,6 +46,7 @@
             margin-top: 10px;
             padding: 10px 20px;
             font-size: 14px;
+            cursor: pointer;
         }
 
         .error {
@@ -64,31 +67,32 @@
         body.dark #output {
             background-color: #1e1e1e;
             border-color: #444;
+            color: #e6e6e6;
         }
 
         body.dark button {
             background-color: #333;
             color: #fff;
+            border: 1px solid #555;
+        }
+
+        .collapsible {
+            cursor: pointer;
+            user-select: none;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .nested {
+            display: none;
+            margin-left: 20px;
+            list-style-type: none;
+        }
+
+        .active {
+            display: block;
         }
     </style>
-    <style>
-        .collapsible {
-          cursor: pointer;
-          user-select: none;
-          display: inline-block;
-          margin-bottom: 5px;
-        }
-    
-        .nested {
-          display: none;
-          margin-left: 20px;
-          list-style-type: none;
-        }
-    
-        .active {
-          display: block;
-        }
-      </style>
 </head>
 
 <body>
@@ -101,17 +105,25 @@
     <script>
         function toggleDarkMode() {
             document.body.classList.toggle('dark');
+            // Save preference to localStorage
+            localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        }
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+            document.getElementById('darkModeToggle').checked = true;
         }
     </script>
     <textarea id="jsonInput" placeholder="Paste your JSON here..."></textarea>
     <br>
     <button onclick="formatJSON()">Format & Validate</button>
+    <button onclick="copyOutput()">📋 Copy Output</button>
 
     <div id="output"></div>
 
     <h2>🌲 JSON Tree View</h2>
     <div id="treeView" style="font-family: monospace; padding: 10px; background: #eef; border: 1px solid #ccc;"></div>
-    
 
     <script>
         function formatJSON() {
@@ -155,7 +167,8 @@
                     li.appendChild(nestedUl);
                 } else {
                     const label = isArray ? `[${key}]` : key;
-                    li.textContent = `${label}: ${value}`;
+                    const displayValue = typeof value === 'string' ? `"${value}"` : value;
+                    li.textContent = `${label}: ${displayValue}`;
                 }
 
                 ul.appendChild(li);
@@ -163,7 +176,6 @@
 
             return ul;
         }
-
 
         function addCollapsibles() {
             const elements = document.getElementsByClassName("collapsible");
@@ -180,32 +192,17 @@
             }
         }
 
-
-    </script>
-
-
-    <script>
-        function formatJSON() {
-            const input = document.getElementById('jsonInput').value;
-            const output = document.getElementById('output');
-            try {
-                const parsed = JSON.parse(input);
-                const formatted = JSON.stringify(parsed, null, 2);
-                output.innerText = formatted;
-                output.className = '';
-            } catch (e) {
-                output.innerText = '❌ Invalid JSON: ' + e.message;
-                output.className = 'error';
-            }
-        }
-    </script>
-
-    <button onclick="copyOutput()">📋 Copy Output</button>
-    <script>
         function copyOutput() {
             const text = document.getElementById('output').innerText;
+            if (!text) {
+                alert('No output to copy!');
+                return;
+            }
             navigator.clipboard.writeText(text).then(() => {
                 alert('Copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy to clipboard');
             });
         }
     </script>
