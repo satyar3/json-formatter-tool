@@ -71,6 +71,24 @@
             color: #fff;
         }
     </style>
+    <style>
+        .collapsible {
+          cursor: pointer;
+          user-select: none;
+          display: inline-block;
+          margin-bottom: 5px;
+        }
+    
+        .nested {
+          display: none;
+          margin-left: 20px;
+          list-style-type: none;
+        }
+    
+        .active {
+          display: block;
+        }
+      </style>
 </head>
 
 <body>
@@ -93,21 +111,7 @@
 
     <h2>🌲 JSON Tree View</h2>
     <div id="treeView" style="font-family: monospace; padding: 10px; background: #eef; border: 1px solid #ccc;"></div>
-    <style>
-        .collapsible {
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .nested {
-            display: none;
-            margin-left: 20px;
-        }
-
-        .active {
-            display: block;
-        }
-    </style>
+    
 
     <script>
         function formatJSON() {
