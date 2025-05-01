@@ -18,7 +18,6 @@ A simple, fast, and lightweight web tool to **format**, **validate**, and **debu
 ## 🌐 Try It Live
 
 👉 [json-formatter-tool.netlify.app](https://json-formatter-tool.netlify.app)  
-*(Replace with your actual Netlify link)*
 
 ---
 
@@ -41,7 +40,7 @@ A simple, fast, and lightweight web tool to **format**, **validate**, and **debu
 
 ## ✨ Future Improvements
 
-- Dark mode toggle
+
 - Minify JSON
 - Drag-and-drop file upload
 - Save recent inputs using `localStorage`
@@ -52,7 +51,7 @@ A simple, fast, and lightweight web tool to **format**, **validate**, and **debu
 ## 📸 Screenshot
 
 <!-- Include this section if you add a screenshot image -->
-![App Screenshot](./screenshot.png)
+![App Screenshot](./![image](https://github.com/user-attachments/assets/b09268cc-18be-4cbb-8d02-b34dde7b500d))
 
 ---
 
@@ -71,4 +70,4 @@ If you find a bug or want a feature, please open an issue or fork the repo.
 
 ## 👨‍💻 Created By
 
-Built with ❤️ by [Your Name](https://github.com/yourusername)
+Built with ❤️ by [Satyaranjan Muduli](https://github.com/satyar3)
