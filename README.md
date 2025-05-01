@@ -2,8 +2,6 @@
 
 A simple, fast, and lightweight web tool to **format**, **validate**, and **debug JSON** data right in your browser. Built using HTML, CSS, and JavaScript.
 
-![Screenshot](screenshot.png) <!-- (Optional: Add a screenshot if available) -->
-
 ---
 
 ## 🚀 Features
