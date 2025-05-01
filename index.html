@@ -1,69 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>JSON Formatter & Validator</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 20px;
-      max-width: 800px;
-      margin: auto;
-    }
+    <meta charset="UTF-8">
+    <title>JSON Formatter & Validator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
 
-    textarea {
-      width: 100%;
-      height: 200px;
-      font-family: monospace;
-      font-size: 14px;
-      padding: 10px;
-    }
+        textarea {
+            width: 100%;
+            height: 200px;
+            font-family: monospace;
+            font-size: 14px;
+            padding: 10px;
+        }
 
-    #output {
-      white-space: pre-wrap;
-      background: #eef;
-      padding: 10px;
-      border: 1px solid #ccc;
-      margin-top: 15px;
-      font-family: monospace;
-    }
+        #output {
+            white-space: pre-wrap;
+            background: #eef;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-top: 15px;
+            font-family: monospace;
+        }
 
-    button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      font-size: 14px;
-    }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 14px;
+        }
 
-    .error {
-      color: red;
-    }
-  </style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
+
 <body>
 
-  <h1>🧹 JSON Formatter & Validator</h1>
-  <textarea id="jsonInput" placeholder="Paste your JSON here..."></textarea>
-  <br>
-  <button onclick="formatJSON()">Format & Validate</button>
+    <h1>🧹 JSON Formatter & Validator</h1>
+    <textarea id="jsonInput" placeholder="Paste your JSON here..."></textarea>
+    <br>
+    <button onclick="formatJSON()">Format & Validate</button>
 
-  <div id="output"></div>
+    <div id="output"></div>
 
-  <script>
-    function formatJSON() {
-      const input = document.getElementById('jsonInput').value;
-      const output = document.getElementById('output');
-      try {
-        const parsed = JSON.parse(input);
-        const formatted = JSON.stringify(parsed, null, 2);
-        output.innerText = formatted;
-        output.className = '';
-      } catch (e) {
-        output.innerText = '❌ Invalid JSON: ' + e.message;
-        output.className = 'error';
-      }
-    }
-  </script>
+    <script>
+        function formatJSON() {
+            const input = document.getElementById('jsonInput').value;
+            const output = document.getElementById('output');
+            try {
+                const parsed = JSON.parse(input);
+                const formatted = JSON.stringify(parsed, null, 2);
+                output.innerText = formatted;
+                output.className = '';
+            } catch (e) {
+                output.innerText = '❌ Invalid JSON: ' + e.message;
+                output.className = 'error';
+            }
+        }
+    </script>
 
+    <button onclick="copyOutput()">📋 Copy Output</button>
+    <script>
+        function copyOutput() {
+            const text = document.getElementById('output').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard!');
+            });
+        }
+    </script>
 </body>
+
 </html>
