@@ -91,6 +91,81 @@
 
     <div id="output"></div>
 
+    <h2>🌲 JSON Tree View</h2>
+    <div id="treeView" style="font-family: monospace; padding: 10px; background: #eef; border: 1px solid #ccc;"></div>
+    <style>
+        .collapsible {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .nested {
+            display: none;
+            margin-left: 20px;
+        }
+
+        .active {
+            display: block;
+        }
+    </style>
+
+    <script>
+        function formatJSON() {
+            const input = document.getElementById('jsonInput').value;
+            const output = document.getElementById('output');
+            const treeView = document.getElementById('treeView');
+            treeView.innerHTML = '';
+
+            try {
+                const parsed = JSON.parse(input);
+                const formatted = JSON.stringify(parsed, null, 2);
+                output.innerText = formatted;
+                output.className = '';
+
+                // Build tree
+                const tree = buildTree(parsed);
+                treeView.appendChild(tree);
+                addCollapsibles();
+
+            } catch (e) {
+                output.innerText = '❌ Invalid JSON: ' + e.message;
+                output.className = 'error';
+                treeView.innerHTML = '';
+            }
+        }
+
+        function buildTree(obj) {
+            const ul = document.createElement('ul');
+            for (let key in obj) {
+                const li = document.createElement('li');
+                if (typeof obj[key] === 'object' && obj[key] !== null) {
+                    li.innerHTML = `<span class="collapsible">▶ ${key}</span>`;
+                    const nestedUl = buildTree(obj[key]);
+                    nestedUl.classList.add('nested');
+                    li.appendChild(nestedUl);
+                } else {
+                    li.textContent = `${key}: ${obj[key]}`;
+                }
+                ul.appendChild(li);
+            }
+            return ul;
+        }
+
+        function addCollapsibles() {
+            const elements = document.getElementsByClassName("collapsible");
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].addEventListener("click", function () {
+                    this.parentElement.querySelector(".nested").classList.toggle("active");
+                    this.textContent = this.textContent.startsWith("▶") ?
+                        this.textContent.replace("▶", "▼") :
+                        this.textContent.replace("▼", "▶");
+                });
+            }
+        }
+
+    </script>
+
+
     <script>
         function formatJSON() {
             const input = document.getElementById('jsonInput').value;
